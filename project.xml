@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="Displaying a Bitmap" package="src" version="1.0.0" company="OpenFL" />
+	<app main="Main" path="Export" file="DisplayingABitmap" />
+	
+	<source path="src" />
+	
+	<haxelib name="openfl" />
+	<haxelib name="hxcpp-debug-server" />
+	
+	<assets path="Assets" rename="assets" />
+	
+	<window background="#000050" vsync="false" />
+	<!-- <window hardware="true"/> -->
+
+</project>

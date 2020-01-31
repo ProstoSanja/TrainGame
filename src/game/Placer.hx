@@ -22,14 +22,20 @@ class Placer extends Sprite {
         this.parentStage = stage;
         this.gameData = data;
 
-        this.graphics.beginFill(0x5555ff);
-        this.alpha = 0.2;
-		this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-        this.graphics.endFill();
-
+        stage.addEventListener(Event.RESIZE, windowResized);
+        
         parentStage.addEventListener(CameraEvent.CAMERA_UPDATE, updateCamera);
         this.addEventListener(MouseEvent.MOUSE_UP, leftClick);
 
+    }
+
+    public function windowResized(e) {
+        this.graphics.clear();
+
+        this.graphics.beginFill(0x5555ff);
+        this.alpha = 0.2;
+		this.graphics.drawRect(0, 0, parentStage.stageWidth, parentStage.stageHeight);
+        this.graphics.endFill();
     }
 
     public function startPlacing(item:GameItem) {

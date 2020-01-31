@@ -24,10 +24,6 @@ class CameraBase extends Sprite {
         super();
         this.gameData = data;
 
-		this.graphics.beginFill(0xf5f5f5);
-		this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-        this.graphics.endFill();
-
         stage.addEventListener(Event.RESIZE, windowResized);
         
 		this.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, startCameraMove);
@@ -40,7 +36,11 @@ class CameraBase extends Sprite {
         canvasWidth = stage.stageWidth;
         canvasHeight = stage.stageHeight;
 
-        //TODO: we need to recreate eentire canvas
+        this.graphics.clear();
+
+		this.graphics.beginFill(0xf5f5f5);
+		this.graphics.drawRect(0, 0, canvasWidth, canvasHeight);
+        this.graphics.endFill();
     }
 
     public function startCameraMove(e) {

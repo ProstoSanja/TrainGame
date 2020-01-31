@@ -63,10 +63,8 @@ class CameraBase extends Sprite {
             gameData.reRenderAll();
             trace("Setting camera to: " + cameraPosX + " , " + cameraPosY);
         }
-        for (item in gameData.getItemsToRender(0,0,0,0)) {
-            if (item.sprite.parent == null) {
-                this.addChild(item.sprite);
-            }
+        for (item in gameData.getItemsToRender(cameraPosX,cameraPosY,canvasWidth,canvasHeight)) {
+            checkIfSpriteExists(item.sprite);
             item.sprite.x = item.posX - cameraPosX;
             item.sprite.y = item.posY - cameraPosY;
             item.rendered = true;
@@ -74,11 +72,15 @@ class CameraBase extends Sprite {
 
         //TODO: Cleanup placement code???
         if (gameData.currentlyPlacing != null) {
-            if (gameData.currentlyPlacing.sprite.parent == null) {
-                this.addChild(gameData.currentlyPlacing.sprite);
-            }
+            checkIfSpriteExists(gameData.currentlyPlacing.sprite);
             gameData.currentlyPlacing.sprite.x = stage.mouseX;
             gameData.currentlyPlacing.sprite.y = stage.mouseY;
+        }
+    }
+
+    public function checkIfSpriteExists(sprite:Sprite) {
+        if (sprite.parent == null) {
+            this.addChild(sprite);
         }
     }
 
@@ -87,7 +89,6 @@ class CameraBase extends Sprite {
             gameData.stopPlacingItem(stage.mouseX + cameraPosX, stage.mouseY + cameraPosY);
             trace("placing object: " + stage.mouseX + " : " + cameraPosX + " : " + stage.mouseY + " : " + cameraPosY);
         }
-
     }
 
 }

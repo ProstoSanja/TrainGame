@@ -1,6 +1,6 @@
 package src.game;
 
-import src.game.sprites.Station;
+import src.game.sprites.*;
 import openfl.display.Sprite;
 
 class GameData {
@@ -20,7 +20,6 @@ class GameData {
         if (currentlyPlacing == null) {
             return;
         }
-        currentlyPlacing.sprite.parent.removeChild(currentlyPlacing.sprite);
         currentlyPlacing.posX = posX;
         currentlyPlacing.posY = posY;
         addItem(currentlyPlacing);
@@ -31,8 +30,12 @@ class GameData {
         items.push(item);
     }
 
-    public function getItemsToRender(x:Int, y:Int, width:Int, Height:Int):Array<GameItem> {
-        //TODO: implement search based on coords;
+    public function getItemsToRender(x:Float, y:Float, width:Float, height:Float):Array<GameItem> {
+        //TODO: implement search based on coords; DONE
+        //TODO: despawn items if out of bounds;
+        //return items.filter(function (item) {
+            //return !item.rendered && item.posX >= x && item.posX <= x+width && item.posY >= y && item.posY <= y+height;
+        //});
         return items.filter(function (item) return !item.rendered);
     }
 
@@ -55,6 +58,7 @@ class GameItem {
         this.type = type;
         switch type {
             case GameItemType.Station: this.sprite = new Station();
+            case GameItemType.ConnectionPoint: this.sprite = new ConnectionPoint();
             default: this.sprite = new Sprite();
         }
     }
@@ -62,5 +66,5 @@ class GameItem {
 
 enum GameItemType {
     Station;
-    Line;
+    ConnectionPoint;
 }

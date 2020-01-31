@@ -56,18 +56,19 @@ class CameraBase extends Sprite {
 
     public function render(e) {
         if (currentlyDraggingCamera) {
-            cameraPosX += stage.mouseX - mousePosX;
-            cameraPosY += stage.mouseY - mousePosY;
+            cameraPosX -= stage.mouseX - mousePosX;
+            cameraPosY -= stage.mouseY - mousePosY;
             mousePosX = stage.mouseX;
             mousePosY = stage.mouseY;
             gameData.reRenderAll();
+            trace("Setting camera to: " + cameraPosX + " , " + cameraPosY);
         }
         for (item in gameData.getItemsToRender(0,0,0,0)) {
             if (item.sprite.parent == null) {
                 this.addChild(item.sprite);
             }
-            item.sprite.x = item.posX + cameraPosX;
-            item.sprite.y = item.posY + cameraPosY;
+            item.sprite.x = item.posX - cameraPosX;
+            item.sprite.y = item.posY - cameraPosY;
             item.rendered = true;
         }
 
@@ -84,6 +85,7 @@ class CameraBase extends Sprite {
     public function leftClick(e) {
         if (gameData.currentlyPlacing != null) {
             gameData.stopPlacingItem(stage.mouseX + cameraPosX, stage.mouseY + cameraPosY);
+            trace("placing object: " + stage.mouseX + " : " + cameraPosX + " : " + stage.mouseY + " : " + cameraPosY);
         }
 
     }

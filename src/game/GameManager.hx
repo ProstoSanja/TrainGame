@@ -1,10 +1,11 @@
-package src.game;
+package game;
 
-import src.game.GameData;
+import game.items.*;
+import game.GameData;
 import openfl.display.Stage;
-import src.gui.BottomButton;
-import src.gui.BottomBar;
-import src.game.camera.CameraBase;
+import gui.BottomButton;
+import gui.BottomBar;
+import game.camera.CameraBase;
 
 class GameManager {
 
@@ -32,11 +33,11 @@ class GameManager {
     }
 
     public function placeStation(e) {
-        gameData.startPlacingItem(new GameItem(GameItemType.Station));
+        gameData.startPlacingItem(new Station());
     }
 
     public function placeConnectionPoint(e) {
-        gameData.startPlacingItem(new GameItem(GameItemType.ConnectionPoint));
+        gameData.startPlacingItem(new ConnectionPoint());
     }
     
 }

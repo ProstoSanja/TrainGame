@@ -1,7 +1,6 @@
-package src.game;
+package game;
 
-import src.game.sprites.*;
-import openfl.display.Sprite;
+import game.items.GameItem;
 
 class GameData {
     private var items = new Array<GameItem>();
@@ -44,27 +43,4 @@ class GameData {
             item.rendered = false;
         }
     }
-}
-
-class GameItem {
-    public var type:GameItemType;
-    public var posX:Float = 0;
-    public var posY:Float = 0;
-
-    public var rendered = false;
-    public var sprite:Sprite;
-
-    public function new(type:GameItemType) {
-        this.type = type;
-        switch type {
-            case GameItemType.Station: this.sprite = new Station();
-            case GameItemType.ConnectionPoint: this.sprite = new ConnectionPoint();
-            default: this.sprite = new Sprite();
-        }
-    }
-}
-
-enum GameItemType {
-    Station;
-    ConnectionPoint;
 }

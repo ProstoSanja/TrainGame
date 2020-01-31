@@ -1,6 +1,6 @@
-package src.gui;
+package gui;
 
-import src.gui.BottomButton;
+import gui.BottomButton;
 import openfl.display.Stage;
 import openfl.display.Sprite;
 

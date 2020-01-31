@@ -1,7 +1,7 @@
 package ;
 
-import src.game.GameManager;
-import src.gui.BottomBar;
+import game.GameManager;
+import gui.BottomBar;
 
 import openfl.events.Event;
 import openfl.display.Sprite;

@@ -1,7 +1,7 @@
-package src.game.camera;
+package game.camera;
 
 import openfl.events.MouseEvent;
-import src.game.GameData;
+import game.GameData;
 import openfl.events.Event;
 
 import openfl.display.Stage;

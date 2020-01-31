@@ -32,7 +32,7 @@ class GameManager {
     }
 
     public function placeStation(e) {
-        gameData.items.push(new GameItem(GameItemType.Station, 0, 0));
+        gameData.startPlacingItem(new GameItem(GameItemType.Station));
     }
     
 }

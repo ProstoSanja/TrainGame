@@ -18,7 +18,7 @@ class CameraBase extends Sprite {
     private var mousePosX:Float = 0;
     private var mousePosY:Float = 0;
 
-    private var gameData:GameData = new GameData();
+    private var gameData:GameData;
 
     public function new(stage:Stage, data:GameData) {
         super();
@@ -31,7 +31,8 @@ class CameraBase extends Sprite {
         stage.addEventListener(Event.RESIZE, windowResized);
         
 		this.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, startCameraMove);
-		this.addEventListener(MouseEvent.RIGHT_MOUSE_UP, stopCameraMove);
+        this.addEventListener(MouseEvent.RIGHT_MOUSE_UP, stopCameraMove);
+        this.addEventListener(MouseEvent.MOUSE_UP, leftClick);
         this.addEventListener(Event.ENTER_FRAME, render);
         
     }
@@ -61,16 +62,30 @@ class CameraBase extends Sprite {
             mousePosY = stage.mouseY;
             gameData.reRenderAll();
         }
-        for (item in gameData.items) {
+        for (item in gameData.getItemsToRender(0,0,0,0)) {
             if (item.sprite.parent == null) {
                 this.addChild(item.sprite);
             }
-            if (!item.rendered) {
-                item.sprite.x = item.posX + cameraPosX;
-                item.sprite.y = item.posY + cameraPosY;
-                item.rendered = true;
-            }
+            item.sprite.x = item.posX + cameraPosX;
+            item.sprite.y = item.posY + cameraPosY;
+            item.rendered = true;
         }
+
+        //TODO: Cleanup placement code???
+        if (gameData.currentlyPlacing != null) {
+            if (gameData.currentlyPlacing.sprite.parent == null) {
+                this.addChild(gameData.currentlyPlacing.sprite);
+            }
+            gameData.currentlyPlacing.sprite.x = stage.mouseX;
+            gameData.currentlyPlacing.sprite.y = stage.mouseY;
+        }
+    }
+
+    public function leftClick(e) {
+        if (gameData.currentlyPlacing != null) {
+            gameData.stopPlacingItem(stage.mouseX + cameraPosX, stage.mouseY + cameraPosY);
+        }
+
     }
 
 }

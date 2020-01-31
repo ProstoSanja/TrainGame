@@ -4,10 +4,36 @@ import src.game.sprites.Station;
 import openfl.display.Sprite;
 
 class GameData {
-    public var items = new Array<GameItem>();
+    private var items = new Array<GameItem>();
+
+    public var currentlyPlacing:GameItem;
 
     public function new() {
         
+    }
+
+    public function startPlacingItem(item:GameItem) {
+        currentlyPlacing = item;
+    }
+
+    public function stopPlacingItem(posX:Float, posY:Float) {
+        if (currentlyPlacing == null) {
+            return;
+        }
+        currentlyPlacing.sprite.parent.removeChild(currentlyPlacing.sprite);
+        currentlyPlacing.posX = posX;
+        currentlyPlacing.posY = posY;
+        addItem(currentlyPlacing);
+        currentlyPlacing = null;
+    }
+
+    public function addItem(item:GameItem) {
+        items.push(item);
+    }
+
+    public function getItemsToRender(x:Int, y:Int, width:Int, Height:Int):Array<GameItem> {
+        //TODO: implement search based on coords;
+        return items.filter(function (item) return !item.rendered);
     }
 
     public function reRenderAll() {
@@ -19,16 +45,14 @@ class GameData {
 
 class GameItem {
     public var type:GameItemType;
-    public var posX:Float;
-    public var posY:Float;
+    public var posX:Float = 0;
+    public var posY:Float = 0;
 
     public var rendered = false;
     public var sprite:Sprite;
 
-    public function new(type:GameItemType, posX:Float, posY:Float) {
+    public function new(type:GameItemType) {
         this.type = type;
-        this.posX = posX;
-        this.posY = posY;
         switch type {
             case GameItemType.Station: this.sprite = new Station();
             default: this.sprite = new Sprite();

@@ -3,6 +3,7 @@ package game;
 import game.items.GameItem;
 
 class GameData {
+    
     private var items = new Array<GameItem>();
 
     public var currentlyPlacing:GameItem;
@@ -30,12 +31,17 @@ class GameData {
     }
 
     public function getItemsToRender(x:Float, y:Float, width:Float, height:Float):Array<GameItem> {
-        //TODO: implement search based on coords; DONE
-        //TODO: despawn items if out of bounds;
-        //return items.filter(function (item) {
-            //return !item.rendered && item.posX >= x && item.posX <= x+width && item.posY >= y && item.posY <= y+height;
-        //});
-        return items.filter(function (item) return !item.rendered);
+        return items.filter(function (item) {
+            var inField = (item.posX >= x && item.posX <= x+width && item.posY >= y && item.posY <= y+height);
+            if (inField && !item.rendered) {
+                return true;
+            } else if (inField && item.rendered) {
+                return false;
+            } else if (!inField && item.sprite.parent != null) {
+                item.sprite.parent.removeChild(item.sprite);
+            }
+            return false;
+        });
     }
 
     public function reRenderAll() {

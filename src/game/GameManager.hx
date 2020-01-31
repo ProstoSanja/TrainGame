@@ -29,7 +29,7 @@ class GameManager {
     public function initializeGUI() {
         bottomBar.addButton(new ButtonData("Station", placeStation));
         bottomBar.addButton(new ButtonData("ConnectionPoint", placeConnectionPoint));
-        bottomBar.addButton(new ButtonData("Option3", null));
+        bottomBar.addButton(new ButtonData("Connection", placeConnection));
     }
 
     public function placeStation(e) {
@@ -38,6 +38,10 @@ class GameManager {
 
     public function placeConnectionPoint(e) {
         gameData.startPlacingItem(new ConnectionPoint());
+    }
+
+    public function placeConnection(e) {
+        //gameData.startPlacingItem(new ConnectionPoint());
     }
     
 }

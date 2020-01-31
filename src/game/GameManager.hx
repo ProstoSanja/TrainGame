@@ -15,6 +15,7 @@ class GameManager {
     private var gameData = new GameData();
 
     private var cameraBase:CameraBase;
+    private var placer:Placer;
 
     public function new(stage:Stage, bottomBar:BottomBar) {
         this.stage = stage;
@@ -22,6 +23,8 @@ class GameManager {
 
         this.cameraBase = new CameraBase(stage, gameData);
         stage.addChildAt(cameraBase, 0);
+
+        this.placer = new Placer(stage, gameData);
 
         initializeGUI();
     }
@@ -33,15 +36,15 @@ class GameManager {
     }
 
     public function placeStation(e) {
-        gameData.startPlacingItem(new Station());
+        placer.startPlacing(new Station());
     }
 
     public function placeConnectionPoint(e) {
-        gameData.startPlacingItem(new ConnectionPoint());
+        placer.startPlacing(new ConnectionPoint());
     }
 
     public function placeConnection(e) {
-        //gameData.startPlacingItem(new ConnectionPoint());
+        //placer.startPlacing();
     }
     
 }

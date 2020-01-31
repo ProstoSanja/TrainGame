@@ -32,7 +32,6 @@ class CameraBase extends Sprite {
         
 		this.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, startCameraMove);
         this.addEventListener(MouseEvent.RIGHT_MOUSE_UP, stopCameraMove);
-        this.addEventListener(MouseEvent.MOUSE_UP, leftClick);
         this.addEventListener(Event.ENTER_FRAME, render);
         
     }
@@ -41,7 +40,7 @@ class CameraBase extends Sprite {
         canvasWidth = stage.stageWidth;
         canvasHeight = stage.stageHeight;
 
-        //we need to recreate eentire canvas
+        //TODO: we need to recreate eentire canvas
     }
 
     public function startCameraMove(e) {
@@ -61,33 +60,13 @@ class CameraBase extends Sprite {
             mousePosX = stage.mouseX;
             mousePosY = stage.mouseY;
             gameData.reRenderAll();
-            trace("Setting camera to: " + cameraPosX + " , " + cameraPosY);
+            stage.dispatchEvent(new CameraEvent(cameraPosX, cameraPosY));
         }
         for (item in gameData.getItemsToRender(cameraPosX,cameraPosY,canvasWidth,canvasHeight)) {
-            checkIfSpriteExists(item.sprite);
+            CameraUtils.checkIfSpriteExists(item.sprite, this);
             item.sprite.x = item.posX - cameraPosX;
             item.sprite.y = item.posY - cameraPosY;
             item.rendered = true;
-        }
-
-        //TODO: Cleanup placement code???
-        if (gameData.currentlyPlacing != null) {
-            checkIfSpriteExists(gameData.currentlyPlacing.sprite);
-            gameData.currentlyPlacing.sprite.x = stage.mouseX;
-            gameData.currentlyPlacing.sprite.y = stage.mouseY;
-        }
-    }
-
-    public function checkIfSpriteExists(sprite:Sprite) {
-        if (sprite.parent == null) {
-            this.addChild(sprite);
-        }
-    }
-
-    public function leftClick(e) {
-        if (gameData.currentlyPlacing != null) {
-            gameData.stopPlacingItem(stage.mouseX + cameraPosX, stage.mouseY + cameraPosY);
-            trace("placing object: " + stage.mouseX + " : " + cameraPosX + " : " + stage.mouseY + " : " + cameraPosY);
         }
     }
 

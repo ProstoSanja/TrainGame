@@ -1,5 +1,6 @@
 package src.game;
 
+import src.game.sprites.Station;
 import openfl.display.Sprite;
 
 class GameData {
@@ -26,10 +27,16 @@ class GameItem {
 
     public function new(type:GameItemType, posX:Float, posY:Float) {
         this.type = type;
+        this.posX = posX;
+        this.posY = posY;
+        switch type {
+            case GameItemType.Station: this.sprite = new Station();
+            default: this.sprite = new Sprite();
+        }
     }
 }
 
 enum GameItemType {
-    Train;
+    Station;
     Line;
 }

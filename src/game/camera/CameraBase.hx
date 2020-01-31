@@ -3,7 +3,6 @@ package src.game.camera;
 import openfl.events.MouseEvent;
 import src.game.GameData;
 import openfl.events.Event;
-import src.game.camera.Train;
 
 import openfl.display.Stage;
 import openfl.display.Sprite;
@@ -63,11 +62,7 @@ class CameraBase extends Sprite {
             gameData.reRenderAll();
         }
         for (item in gameData.items) {
-            if (item.sprite == null) {
-                switch item.type {
-                    case GameItemType.Train: item.sprite = new Train();
-                    default: item.sprite = new Sprite();
-                }
+            if (item.sprite.parent == null) {
                 this.addChild(item.sprite);
             }
             if (!item.rendered) {

@@ -26,21 +26,13 @@ class GameManager {
     }
 
     public function initializeGUI() {
-        bottomBar.addButton(new ButtonData("Line", testLine));
-        bottomBar.addButton(new ButtonData("Station", stationLine));
-        bottomBar.addButton(new ButtonData("Chat", chatLine));
+        bottomBar.addButton(new ButtonData("Station", placeStation));
+        bottomBar.addButton(new ButtonData("Option2", null));
+        bottomBar.addButton(new ButtonData("Option3", null));
     }
 
-    public function testLine(e) {
-        gameData.items.push(new GameItem(GameItemType.Train, 0, 0));
-    }
-
-    public function stationLine(e) {
-        
-    }
-
-    public function chatLine(e) {
-        
+    public function placeStation(e) {
+        gameData.items.push(new GameItem(GameItemType.Station, 0, 0));
     }
     
 }

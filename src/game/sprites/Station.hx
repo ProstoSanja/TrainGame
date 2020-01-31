@@ -1,8 +1,8 @@
-package src.game.camera;
+package src.game.sprites;
 
 import openfl.display.Sprite;
 
-class Train extends Sprite{
+class Station extends Sprite{
     public function new() {
         super();
         this.graphics.beginFill(0xff5050);

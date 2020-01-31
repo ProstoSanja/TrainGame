@@ -28,20 +28,19 @@ class Placer extends Sprite {
         this.graphics.endFill();
 
         parentStage.addEventListener(CameraEvent.CAMERA_UPDATE, updateCamera);
+        this.addEventListener(MouseEvent.MOUSE_UP, leftClick);
 
     }
 
     public function startPlacing(item:GameItem) {
         parentStage.addChild(this);
-        parentStage.addEventListener(MouseEvent.MOUSE_DOWN, leftClick);
-        parentStage.addEventListener(Event.ENTER_FRAME, onRender);
+        this.addEventListener(Event.ENTER_FRAME, onRender);
         currentlyPlacing = item;
     }
 
     public function leftClick(e) {
         if (currentlyPlacing != null) {
-            parentStage.removeEventListener(Event.ENTER_FRAME, onRender);
-            parentStage.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);
+            this.removeEventListener(Event.ENTER_FRAME, onRender);
             this.removeChild(currentlyPlacing.sprite);
             currentlyPlacing.posX = parentStage.mouseX + cameraPosX;
             currentlyPlacing.posY = parentStage.mouseY + cameraPosY;
